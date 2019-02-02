@@ -1,0 +1,111 @@
+# Machine Learning—Text Processing
+Text processing for machine learning applications is divided into three main steps:
+1.	Text Preprocessing
+2.	Feature extraction
+3.	Choosing algorithm
+
+## Step 1: Text Preprocessing
+Text preprocessing include basic four steps
+1-	Tokenization
+2-	Removing punctuation
+3-	Removing stop words
+4-	Stemming
+In some cases a fifth step might be used
+5-	Lemmatization
+There are many Python libraries that could be used. 
+
+<bold>NLTK</bold>  
+The Natural Language Tool Kit is one of the best-known and most-used NLP libraries, 
+NLTK is useful for all sorts of tasks from tokenization, stemming, tagging, parsing, and beyond
+
+<bold>BeautifulSoup</bold>
+This library is great for extracting data from HTML and XML documents
+
+Examples of most frequently used code in each step
+
+### Tokenization — convert sentences to words
+<code>
+# Tokenization (split text into word)
+import nltk
+from nltk.tokenize import word_tokenize
+tokens = word_tokenize("The quick brown fox jumps over the lazy dog")
+</code>
+
+### Removing punctuations — removing unnecessary punctuation and tags.
+<code>
+import string
+tokens = [s.translate(None, string.punctuation) for s in tokens]
+</code>
+
+NOTE: You can merge tokenization and removing punctuation using the function
+<code>
+from nltk.tokenize import RegexpTokenizer
+reviews = df.review.str.cat(sep=' ')
+tokenizer = RegexpTokenizer(r'\w+')
+tokens = tokenizer.tokenize(reviews)
+</code>
+
+### Removing stop words — frequent words such as ”the”, ”is”, etc. that do not have specific semantic. 
+<code>
+# Deleting/excluding Stopwords
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+stop_words = set(stopwords.words('english'))
+tokens = [w for w in tokens if not w in stop_words]
+</code>
+
+### Stemming — words are reduced to a root by removing inflection through dropping unnecessary characters, usually a suffix. There are many available stemmers like Porter stemmer, Lancaster Stemmer, Snowball Stemmer
+<code>
+# Stemming using Porter stemmer from NLTK
+from nltk.stem import PorterStemmer
+ps = PorterStemmer()
+tokens = [ps.stem(word) for word in tokens]
+</code>
+
+### Lemmatization — another approach to remove inflection by determining the part of speech and utilizing detailed database of the language.
+
+
+## Step 2: Feature Extraction
+The mapping from textual data to real valued vectors is called feature extraction. 
+There are four most frequent approaches in this step
+-	Bag of Words
+-	Word Embedding
+-	Word2Vec
+-	GloVe
+
+### Bag of Words (BOW)
+One of the simplest techniques to numerically represent text is Bag of Words.
+It simply counts the number of times (frequency) each word appears in a document. 
+The most popular approach is using the Term Frequency-Inverse Document Frequency (TF-IDF) technique. This technique highlights the uniqueness of the text.
+Term Frequency (TF) = (Number of times term t appears in a document)/(Number of terms in the document)
+Inverse Document Frequency (IDF) = log(N/n), where, N is the number of documents and n is the number of documents a term t has appeared in. 
+TF-IDF value of a term = TF * IDF
+One of the major disadvantages of using BOW is that it discards word order thereby ignoring the context and in turn meaning of words in the document. 
+
+
+### Word Embedding
+It is a representation of text where words that have the same meaning have a similar representation.
+Word embeddings encode each word into a vector that captures some sort of relation and similarity between words within the text corpus. 
+This means even the variations of words like case, spelling, punctuation, and so on will be automatically learned. 
+In turn, this can mean that some of the text cleaning steps described above may no longer be required.
+
+### Word2Vec
+Word2vec takes as its input a large corpus of text and produces a vector space with each unique word being assigned 
+In this space, words that share common contexts in the corpus are located in close proximity to one another in the space.
+
+### GlovVe
+The Global Vectors for Word Representation, or GloVe, algorithm is an extension to the word2vec method for efficiently learning word vectors. 
+GloVe constructs an explicit word-context or word co-occurrence matrix using statistics across the whole text corpus
+GloVe is based on calculating the probability of a certain word appears given that another one is already there. P(k|w) be the probability that the word k appears in the context of word w. 
+
+
+## Step 3: Choosing ML Algorithms
+Support Vector Machine (SVM) is one of the bests. However, Naive Bayes or Decision trees are also good. Try many algorithms and select the one that gives the best accuracy.
+
+
+## References
+Javaid Nabi (2018). Machine Learning — Text Processing. Towards Data Science. https://towardsdatascience.com/machine-learning-text-processing-1d5a2d638958 
+
+Publications Using the Dataset
+Andrew L. Maas, Raymond E. Daly, Peter T. Pham, Dan Huang, Andrew Y. Ng, and Christopher Potts. (2011). Learning Word Vectors for Sentiment Analysis. 
+The 49th Annual Meeting of the Association for Computational Linguistics (ACL 2011).
