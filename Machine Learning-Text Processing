@@ -14,11 +14,11 @@ In some cases a fifth step might be used
 5-	Lemmatization
 There are many Python libraries that could be used. 
 
-<bold>NLTK</bold>  
+<b>NLTK</b>  
 The Natural Language Tool Kit is one of the best-known and most-used NLP libraries, 
 NLTK is useful for all sorts of tasks from tokenization, stemming, tagging, parsing, and beyond
 
-<bold>BeautifulSoup</bold>
+<b>BeautifulSoup</b>
 This library is great for extracting data from HTML and XML documents
 
 Examples of most frequently used code in each step
